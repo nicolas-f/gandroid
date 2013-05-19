@@ -7,13 +7,24 @@
     <version>0.1-SNAPSHOT</version>
     <packaging>apk</packaging>
     <name>android-client</name>
-
+    <licenses>
+        <license>
+           <name>GPL V3</name>
+           <url>http://www.gnu.org/licenses</url>
+        </license>
+    </licenses>
     <dependencies>
         <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
             <version>1.6_r2</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <!-- see https://github.com/timroes/aXMLRPC -->
+            <groupId>de.timroes</groupId>
+            <artifactId>aXMLRPC</artifactId>
+            <version>1.7.0</version>
         </dependency>
     </dependencies>
     <build>
