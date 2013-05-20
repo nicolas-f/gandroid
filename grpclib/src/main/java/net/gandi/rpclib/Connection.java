@@ -24,6 +24,7 @@ import de.timroes.axmlrpc.XMLRPCClient;
 import de.timroes.axmlrpc.XMLRPCException;
 import javax.net.ssl.TrustManagerFactory;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.security.*;
 
@@ -49,12 +50,6 @@ public class Connection {
         } else {
             rpc = new XMLRPCClient(new URL(PRODUCTION_API_URL));
         }
-        // Use Jar SSL keyStore
-        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-        keyStore.load(Connection.class.getResourceAsStream(rpc.getURL().getHost()+".crt"),null);
-        TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-        tmf.init(keyStore);
-        rpc.installCustomTrustManagers(tmf.getTrustManagers());
     }
 
     /**

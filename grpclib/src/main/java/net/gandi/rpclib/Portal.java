@@ -43,7 +43,10 @@ public class Portal {
      */
     public List<Domain> getDomains() throws IOException {
         List<Domain> domainList = new LinkedList<Domain>();
-
+        Object[] nameservers = (Object[]) connection.call("domain.list");
+        for(Object domainObj : nameservers) {
+            domainList.add(new Domain(connection,domainObj.toString()));
+        }
         return domainList;
     }
 }

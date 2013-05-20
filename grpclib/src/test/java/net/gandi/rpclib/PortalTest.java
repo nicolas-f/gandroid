@@ -21,8 +21,6 @@
 package net.gandi.rpclib;
 
 import org.junit.Test;
-
-import java.net.MalformedURLException;
 import java.util.List;
 
 import static org.junit.Assume.assumeNotNull;
