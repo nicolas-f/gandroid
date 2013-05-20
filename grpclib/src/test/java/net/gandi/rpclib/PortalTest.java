@@ -34,7 +34,7 @@ public class PortalTest {
     private static final String ENV_KEY = "gandi-api-key";
 
     private static Connection getConnection() throws Exception {
-        return new Connection(true,System.getenv(ENV_KEY));
+        return new Connection(false,System.getenv(ENV_KEY));
     }
     @Test
     public void testDomainList() throws Exception {
@@ -42,5 +42,18 @@ public class PortalTest {
         Connection connection = getConnection();
         Portal portal = new Portal(connection);
         List<Domain> domainList = portal.getDomains();
+        System.out.println("Domains:");
+        for(Domain domain : domainList) {
+            System.out.println("\t"+domain.getDomainName());
+            System.out.println("\tAliases:");
+            for(DomainMailForward alias : domain.getMailForwards()) {
+                System.out.println("\t\tFrom: "+alias.getSource()+"@"+domain.getDomainName());
+                System.out.println("\t\tTo:");
+                for(String mail :alias.getDestinations()) {
+                    System.out.println("\t\t\t"+mail);
+                }
+                System.out.println("\n");
+            }
+        }
     }
 }

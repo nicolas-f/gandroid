@@ -64,7 +64,7 @@ public class Connection {
                 Object[] newParams = new Object[params.length+1];
                 System.arraycopy(params,0,newParams,1,params.length);
                 newParams[0] = apikey;
-                return rpc.call(method, apikey,  newParams);
+                return rpc.call(method, newParams);
             } else {
                 return rpc.call(method,apikey);
             }

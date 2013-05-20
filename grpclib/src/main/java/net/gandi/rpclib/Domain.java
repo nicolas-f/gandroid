@@ -20,16 +20,35 @@
 
 package net.gandi.rpclib;
 
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * A domain owned by the user
  * @author Nicolas Fortin
  */
 public class Domain {
     private final Connection connection;
-    private final String domainName;
+    private final Map<String,Object> domainInfos;
+    public static final String NAME_KEY = "fqdn";
 
-    public Domain(Connection connection, String domainName) {
+    public Domain(Connection connection, Object requestValue) {
         this.connection = connection;
-        this.domainName = domainName;
+        this.domainInfos = (Map<String,Object>)requestValue;
+    }
+
+    public String getDomainName() {
+        return domainInfos.get(NAME_KEY).toString();
+    }
+
+    public List<DomainMailForward> getMailForwards() throws IOException {
+        List<DomainMailForward> mailForwards = new LinkedList<DomainMailForward>();
+        Object[] res = (Object[])connection.call("domain.forward.list",getDomainName());
+        for(Object redir : res) {
+            mailForwards.add(new DomainMailForward(redir));
+        }
+        return mailForwards;
     }
 }
