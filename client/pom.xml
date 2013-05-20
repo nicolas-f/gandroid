@@ -21,10 +21,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <!-- see https://github.com/timroes/aXMLRPC -->
-            <groupId>de.timroes</groupId>
-            <artifactId>aXMLRPC</artifactId>
-            <version>1.7.0</version>
+            <groupId>${groupId}</groupId>
+            <artifactId>gandi-rpc-lib</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
     <build>

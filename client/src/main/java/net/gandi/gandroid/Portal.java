@@ -20,9 +20,12 @@
 
 package net.gandi.gandroid;
 
+import android.app.Activity;
+
 /**
  * Shown after login, services selection.
  * @author Nicolas Fortin
  */
-public class Portal {
+public class Portal extends Activity {
+
 }

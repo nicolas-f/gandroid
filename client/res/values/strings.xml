@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="defaultHandle">-GANDI</string>
+    <string name="key_field">API Key:</string>
+    <string name="savekey_field">API Key:</string>
     <string name="app_name">Gandroid</string>
 </resources>
