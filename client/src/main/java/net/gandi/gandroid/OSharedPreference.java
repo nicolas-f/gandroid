@@ -39,11 +39,8 @@ import java.util.Map;
  */
 public class OSharedPreference implements SharedPreferences {
     protected static final String UTF8 = "utf-8";
-    private final char[] sesm; // INSERT A RANDOM PASSWORD HERE.
-    // Don't use anything you wouldn't want to
-    // get out there if someone decompiled
-    // your app.
-
+    private final char[] sesm;
+    private static final String ALGORITHM = "PBEWITHSHAAND128BITAES-CBC-BC";
 
     protected SharedPreferences delegate;
     protected Context context;
@@ -69,31 +66,31 @@ public class OSharedPreference implements SharedPreferences {
 
         @Override
         public Editor putBoolean(String key, boolean value) {
-            delegate.putString(key, encrypt(Boolean.toString(value)));
+            delegate.putString(key, inBox(Boolean.toString(value)));
             return this;
         }
 
         @Override
         public Editor putFloat(String key, float value) {
-            delegate.putString(key, encrypt(Float.toString(value)));
+            delegate.putString(key, inBox(Float.toString(value)));
             return this;
         }
 
         @Override
         public Editor putInt(String key, int value) {
-            delegate.putString(key, encrypt(Integer.toString(value)));
+            delegate.putString(key, inBox(Integer.toString(value)));
             return this;
         }
 
         @Override
         public Editor putLong(String key, long value) {
-            delegate.putString(key, encrypt(Long.toString(value)));
+            delegate.putString(key, inBox(Long.toString(value)));
             return this;
         }
 
         @Override
         public Editor putString(String key, String value) {
-            delegate.putString(key, encrypt(value));
+            delegate.putString(key, inBox(value));
             return this;
         }
 
@@ -128,31 +125,31 @@ public class OSharedPreference implements SharedPreferences {
     @Override
     public boolean getBoolean(String key, boolean defValue) {
         final String v = delegate.getString(key, null);
-        return v!=null ? Boolean.parseBoolean(decrypt(v)) : defValue;
+        return v!=null ? Boolean.parseBoolean(outBox(v)) : defValue;
     }
 
     @Override
     public float getFloat(String key, float defValue) {
         final String v = delegate.getString(key, null);
-        return v!=null ? Float.parseFloat(decrypt(v)) : defValue;
+        return v!=null ? Float.parseFloat(outBox(v)) : defValue;
     }
 
     @Override
     public int getInt(String key, int defValue) {
         final String v = delegate.getString(key, null);
-        return v!=null ? Integer.parseInt(decrypt(v)) : defValue;
+        return v!=null ? Integer.parseInt(outBox(v)) : defValue;
     }
 
     @Override
     public long getLong(String key, long defValue) {
         final String v = delegate.getString(key, null);
-        return v!=null ? Long.parseLong(decrypt(v)) : defValue;
+        return v!=null ? Long.parseLong(outBox(v)) : defValue;
     }
 
     @Override
     public String getString(String key, String defValue) {
         final String v = delegate.getString(key, null);
-        return v != null ? decrypt(v) : defValue;
+        return v != null ? outBox(v) : defValue;
     }
 
     @Override
@@ -170,13 +167,18 @@ public class OSharedPreference implements SharedPreferences {
         delegate.unregisterOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
     }
 
-    protected String encrypt( String value ) {
+    /**
+     * Encrypt
+     * @param value String to encrypt
+     * @return Encrypted value
+     */
+    protected String inBox(String value) {
 
         try {
             final byte[] bytes = value!=null ? value.getBytes(UTF8) : new byte[0];
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBEWithMD5AndDES");
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(ALGORITHM);
             SecretKey key = keyFactory.generateSecret(new PBEKeySpec(sesm));
-            Cipher pbeCipher = Cipher.getInstance("PBEWithMD5AndDES");
+            Cipher pbeCipher = Cipher.getInstance(ALGORITHM);
             pbeCipher.init(Cipher.ENCRYPT_MODE, key, new PBEParameterSpec(Settings.Secure.getString(context.getContentResolver(),Settings.System.ANDROID_ID).getBytes(UTF8), 20));
             return new String(Base64.encodeAsBytes(pbeCipher.doFinal(bytes)),UTF8);
 
@@ -186,12 +188,17 @@ public class OSharedPreference implements SharedPreferences {
 
     }
 
-    protected String decrypt(String value){
+    /**
+     * Decrypt
+     * @param value String to decrypt
+     * @return Decrypted value
+     */
+    protected String outBox(String value){
         try {
             final byte[] bytes = value!=null ? Base64.decode(value) : new byte[0];
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBEWithMD5AndDES");
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(ALGORITHM);
             SecretKey key = keyFactory.generateSecret(new PBEKeySpec(sesm));
-            Cipher pbeCipher = Cipher.getInstance("PBEWithMD5AndDES");
+            Cipher pbeCipher = Cipher.getInstance(ALGORITHM);
             pbeCipher.init(Cipher.DECRYPT_MODE, key, new PBEParameterSpec(Settings.Secure.getString(context.getContentResolver(),Settings.System.ANDROID_ID).getBytes(UTF8), 20));
             return new String(pbeCipher.doFinal(bytes),UTF8);
 
