@@ -21,6 +21,7 @@
 package net.gandi.rpclib;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -33,14 +34,25 @@ public class Domain {
     private final Connection connection;
     private final Map<String,Object> domainInfos;
     public static final String NAME_KEY = "fqdn";
+    public static final String DATE_REGISTRY_END_KEY = "date_registry_end";
 
     public Domain(Connection connection, Object requestValue) {
         this.connection = connection;
         this.domainInfos = (Map<String,Object>)requestValue;
     }
 
+    /**
+     * @return Domain name ex: mydomain.com
+     */
     public String getDomainName() {
         return domainInfos.get(NAME_KEY).toString();
+    }
+
+    /**
+     * @return End of domain name contract.
+     */
+    public Date getDateRegistryEnd() {
+        return (Date)domainInfos.get(DATE_REGISTRY_END_KEY);
     }
 
     public List<DomainMailForward> getMailForwards() throws IOException {
