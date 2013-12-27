@@ -55,6 +55,11 @@ public class Domain {
         return (Date)domainInfos.get(DATE_REGISTRY_END_KEY);
     }
 
+    /**
+     * Get mail alias of this domain. This method open connection and may take time to respond.
+     * @return Domain mail forwards list
+     * @throws IOException
+     */
     public List<DomainMailForward> getMailForwards() throws IOException {
         List<DomainMailForward> mailForwards = new LinkedList<DomainMailForward>();
         Object[] res = (Object[])connection.call("domain.forward.list",getDomainName());

@@ -22,11 +22,10 @@ package net.gandi.rpclib;
 
 import de.timroes.axmlrpc.XMLRPCClient;
 import de.timroes.axmlrpc.XMLRPCException;
-import javax.net.ssl.TrustManagerFactory;
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.security.*;
+import java.security.GeneralSecurityException;
 
 /**
  * Hold information to send request to the remote API.
@@ -69,7 +68,7 @@ public class Connection {
                 return rpc.call(method,apikey);
             }
         }catch (XMLRPCException ex) {
-            throw new IOException(ex);
+            throw new IOException(ex.getLocalizedMessage());
         }
     }
 }

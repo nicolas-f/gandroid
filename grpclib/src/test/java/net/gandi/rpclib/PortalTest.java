@@ -28,17 +28,19 @@ import static org.junit.Assume.assumeNotNull;
 /**
  * Not easy to unit test RPC, it requires a valid apikey,
  * this unit test does not update nor delete anything on Gandi.
+ * Run Unit test with valid API key through parameter "mvn -Dgandi-api-key=ALPHANUMKEY test"
  * @author Nicolas Fortin
  */
 public class PortalTest {
     private static final String ENV_KEY = "gandi-api-key";
 
     private static Connection getConnection() throws Exception {
-        return new Connection(false,System.getenv(ENV_KEY));
+        return new Connection(false,System.getProperty(ENV_KEY));
     }
     @Test
     public void testDomainList() throws Exception {
-        assumeNotNull(System.getenv(ENV_KEY));
+        System.out.println("API Key available ? "+(System.getProperty(ENV_KEY) != null));
+        assumeNotNull(System.getProperty(ENV_KEY));
         Connection connection = getConnection();
         Portal portal = new Portal(connection);
         List<Domain> domainList = portal.getDomains();

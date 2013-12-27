@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>android-client</artifactId>
+    <artifactId>android-common</artifactId>
     <packaging>apk</packaging>
-    <name>android-client</name>
+    <name>android-common library</name>
     <parent>
         <groupId>net.gandi</groupId>
         <artifactId>gandroid-suite</artifactId>
@@ -25,14 +25,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>gandi-rpc-lib</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>android-common</artifactId>
-            <version>${project.version}</version>
+            <!-- see https://github.com/timroes/aXMLRPC -->
+            <groupId>de.timroes</groupId>
+            <artifactId>aXMLRPC</artifactId>
+            <version>1.7.1</version>
         </dependency>
     </dependencies>
     <build>

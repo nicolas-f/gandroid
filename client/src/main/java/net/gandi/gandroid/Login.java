@@ -22,7 +22,7 @@ package net.gandi.gandroid;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import net.gandi.R;
+import net.gandi.gandroid.R;
 
 /**
  * Login page, get sessionid.

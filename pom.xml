@@ -4,12 +4,14 @@
         <groupId>net.gandi</groupId>
         <artifactId>gandroid-suite</artifactId>
         <packaging>pom</packaging>
-        <version>1.0</version>
+        <version>0.1-SNAPSHOT</version>
         <name>Gandroid root</name>
         <url>https://github.com/binseeds/gandroid</url>
         <modules>
                 <module>grpclib</module>
+                <module>android-common</module>
                 <module>client</module>
+                <module>client-test</module>
         </modules>
         <properties>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

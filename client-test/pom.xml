@@ -2,9 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>android-client</artifactId>
+    <groupId>net.gandi</groupId>
+    <artifactId>android-client-test</artifactId>
     <packaging>apk</packaging>
-    <name>android-client</name>
+    <name>android-client-test</name>
     <parent>
         <groupId>net.gandi</groupId>
         <artifactId>gandroid-suite</artifactId>
@@ -19,20 +20,20 @@
     </licenses>
     <dependencies>
         <dependency>
+            <groupId>net.gandi</groupId>
+            <artifactId>android-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android-test</artifactId>
+            <version>1.6_r2</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
             <version>1.6_r2</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>gandi-rpc-lib</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>android-common</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>

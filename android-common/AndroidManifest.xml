@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="net.gandi.common" android:versionCode="1" android:versionName="0.1-SNAPSHOT">
+  <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="11"/>
+  <application android:label="android-common-lib"/>
+</manifest>
+
