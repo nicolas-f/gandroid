@@ -23,6 +23,13 @@
             <groupId>net.gandi</groupId>
             <artifactId>android-client</artifactId>
             <version>${project.version}</version>
+            <type>apk</type>
+        </dependency>
+        <dependency>
+            <groupId>net.gandi</groupId>
+            <artifactId>android-client</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>com.google.android</groupId>
